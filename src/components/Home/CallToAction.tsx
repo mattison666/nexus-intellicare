@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Zap, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const CallToAction = () => {
+  const { t } = useTranslation();
   return (
     <section className="py-20 bg-background relative overflow-hidden">
       {/* Background Elements */}
@@ -103,23 +106,27 @@ const CallToAction = () => {
             viewport={{ once: true }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
           >
-            <Button 
-              variant="glow" 
-              size="lg" 
-              className="group text-lg px-8 py-6 h-auto"
-            >
-              Get a Free Consultation
-              <ArrowRight className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" />
-            </Button>
+            <Link to="/contact">
+              <Button 
+                variant="glow" 
+                size="lg" 
+                className="group text-lg px-8 py-6 h-auto"
+              >
+                {t("getFreeConsultation")}
+                <ArrowRight className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
             
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="group text-lg px-8 py-6 h-auto"
-            >
-              View Our Work
-              <Sparkles className="w-5 h-5 ml-2 transition-transform group-hover:rotate-12" />
-            </Button>
+            <Link to="/services">
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="group text-lg px-8 py-6 h-auto"
+              >
+                {t("viewAllProjects")}
+                <Sparkles className="w-5 h-5 ml-2 transition-transform group-hover:rotate-12" />
+              </Button>
+            </Link>
           </motion.div>
 
           {/* Trust Indicators */}

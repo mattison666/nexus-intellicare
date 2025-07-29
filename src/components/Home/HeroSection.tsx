@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-ai-brain.jpg";
 
 const HeroSection = () => {
+  const { t } = useTranslation();
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-neural">
       {/* Animated background elements */}
@@ -40,17 +43,15 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
             >
-              We Shape the{" "}
+              {t("heroTitle").split(" ").slice(0, 4).join(" ")}{" "}
               <span className="bg-gradient-cyber bg-clip-text text-transparent">
-                Future
+                {t("heroTitle").split(" ").slice(4, 6).join(" ")}
               </span>{" "}
-              with{" "}
               <span className="bg-gradient-glow bg-clip-text text-transparent">
-                Intelligence
+                {t("heroTitle").split(" ").slice(6, 8).join(" ")}
               </span>{" "}
-              and{" "}
               <span className="text-accent">
-                Creativity
+                {t("heroTitle").split(" ").slice(8).join(" ")}
               </span>
             </motion.h1>
 
@@ -61,7 +62,7 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl"
             >
-              Transform your business with cutting-edge AI solutions. From intelligent design to smart development, we create the future today.
+              {t("heroDescription")}
             </motion.p>
 
             {/* CTA Buttons */}
@@ -71,22 +72,26 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 1 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <Button 
-                variant="glow" 
-                size="lg" 
-                className="group"
-              >
-                Get Started
-                <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="group"
-              >
-                Our Projects
-                <Zap className="w-5 h-5 ml-2 transition-transform group-hover:rotate-12" />
-              </Button>
+              <Link to="/contact">
+                <Button 
+                  variant="glow" 
+                  size="lg" 
+                  className="group"
+                >
+                  {t("getStarted")}
+                  <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+              <Link to="/services">
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="group"
+                >
+                  {t("ourProjects")}
+                  <Zap className="w-5 h-5 ml-2 transition-transform group-hover:rotate-12" />
+                </Button>
+              </Link>
             </motion.div>
 
             {/* Stats */}

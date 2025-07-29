@@ -3,20 +3,32 @@ import { motion } from "framer-motion";
 import { Menu, X, Zap, Globe, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "@/providers/ThemeProvider";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(true);
-  const [language, setLanguage] = useState("EN");
+  const { theme, setTheme } = useTheme();
+  const { t, i18n } = useTranslation();
+  
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+  
+  const toggleLanguage = () => {
+    const newLang = i18n.language === "en" ? "ar" : "en";
+    i18n.changeLanguage(newLang);
+  };
 
   const navItems = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Projects", href: "/projects" },
-    { name: "Academy", href: "/academy" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/contact" },
+    { name: t("home"), href: "/" },
+    { name: t("about"), href: "/about" },
+    { name: t("servicesNav"), href: "/services" },
+    { name: t("projects"), href: "/projects" },
+    { name: t("academy"), href: "/academy" },
+    { name: t("blog"), href: "/blog" },
+    { name: t("contact"), href: "/contact" },
   ];
 
   return (
@@ -36,23 +48,23 @@ const Header = () => {
             <div className="w-8 h-8 bg-gradient-cyber rounded-lg flex items-center justify-center">
               <Zap className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold bg-gradient-cyber bg-clip-text text-transparent">
+            <Link to="/" className="text-xl font-bold bg-gradient-cyber bg-clip-text text-transparent">
               AI Creative Group
-            </span>
+            </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                whileHover={{ scale: 1.05 }}
-                className="text-foreground/80 hover:text-primary transition-colors relative group"
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-cyber transition-all duration-300 group-hover:w-full" />
-              </motion.a>
+              <motion.div key={item.name}>
+                <Link
+                  to={item.href}
+                  className="text-foreground/80 hover:text-primary transition-colors relative group"
+                >
+                  {item.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-cyber transition-all duration-300 group-hover:w-full" />
+                </Link>
+              </motion.div>
             ))}
           </nav>
 
@@ -62,27 +74,29 @@ const Header = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setLanguage(language === "EN" ? "AR" : "EN")}
+              onClick={toggleLanguage}
               className="hidden sm:flex items-center space-x-1 text-foreground/80 hover:text-primary transition-colors"
             >
               <Globe className="w-4 h-4" />
-              <span className="text-sm">{language}</span>
+              <span className="text-sm">{i18n.language.toUpperCase()}</span>
             </motion.button>
 
             {/* Theme Toggle */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setIsDark(!isDark)}
+              onClick={toggleTheme}
               className="hidden sm:flex items-center justify-center w-9 h-9 rounded-lg bg-secondary/50 text-foreground/80 hover:text-primary transition-colors"
             >
-              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </motion.button>
 
             {/* Get Started Button */}
-            <Button variant="glow" size="sm" className="hidden sm:inline-flex">
-              Get Started
-            </Button>
+            <Link to="/contact">
+              <Button variant="glow" size="sm" className="hidden sm:inline-flex">
+                {t("getStarted")}
+              </Button>
+            </Link>
 
             {/* Mobile menu button */}
             <motion.button
@@ -107,23 +121,25 @@ const Header = () => {
         >
           <nav className="py-4 space-y-2">
             {navItems.map((item) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                whileHover={{ x: 10 }}
-                className="block py-2 px-4 text-foreground/80 hover:text-primary hover:bg-secondary/30 rounded-lg transition-all"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.name}
-              </motion.a>
+              <motion.div key={item.name}>
+                <Link
+                  to={item.href}
+                  className="block py-2 px-4 text-foreground/80 hover:text-primary hover:bg-secondary/30 rounded-lg transition-all"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              </motion.div>
             ))}
             <div className="pt-4 space-y-2">
-              <Button variant="outline" size="sm" className="w-full">
-                {language === "EN" ? "العربية" : "English"}
+              <Button variant="outline" size="sm" className="w-full" onClick={toggleLanguage}>
+                {i18n.language === "en" ? "العربية" : "English"}
               </Button>
-              <Button variant="glow" size="sm" className="w-full">
-                Get Started
-              </Button>
+              <Link to="/contact" className="block">
+                <Button variant="glow" size="sm" className="w-full">
+                  {t("getStarted")}
+                </Button>
+              </Link>
             </div>
           </nav>
         </motion.div>
