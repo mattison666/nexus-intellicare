@@ -7,8 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from "react-i18next";
+import { toast } from "@/components/ui/use-toast";
 
 const Contact = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,7 +22,17 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission here
-    console.log("Form submitted:", formData);
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for your message. We'll get back to you within 24 hours.",
+    });
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: ""
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -76,13 +89,10 @@ const Contact = () => {
               className="text-center max-w-4xl mx-auto"
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Let's Start Your{" "}
-                <span className="bg-gradient-cyber bg-clip-text text-transparent">
-                  AI Project
-                </span>
+                {t("contactTitle")}
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                Ready to transform your business? Get in touch with our team of AI experts.
+                {t("contactDescription")}
               </p>
             </motion.div>
           </div>
@@ -102,7 +112,7 @@ const Contact = () => {
               >
                 <div>
                   <h2 className="text-3xl font-bold mb-4">
-                    Send us a <span className="bg-gradient-cyber bg-clip-text text-transparent">Message</span>
+                    {t("send")}
                   </h2>
                   <p className="text-muted-foreground">
                     Fill out the form below and we'll get back to you within 24 hours.
@@ -117,7 +127,7 @@ const Contact = () => {
                     viewport={{ once: true }}
                     className="space-y-2"
                   >
-                    <Label htmlFor="name">Full Name *</Label>
+                    <Label htmlFor="name">{t("name")} *</Label>
                     <Input
                       id="name"
                       name="name"
@@ -137,7 +147,7 @@ const Contact = () => {
                     viewport={{ once: true }}
                     className="space-y-2"
                   >
-                    <Label htmlFor="email">Email Address *</Label>
+                    <Label htmlFor="email">{t("email")} *</Label>
                     <Input
                       id="email"
                       name="email"
@@ -157,7 +167,7 @@ const Contact = () => {
                     viewport={{ once: true }}
                     className="space-y-2"
                   >
-                    <Label htmlFor="phone">Phone Number (Optional)</Label>
+                    <Label htmlFor="phone">{t("phone")}</Label>
                     <Input
                       id="phone"
                       name="phone"
@@ -176,7 +186,7 @@ const Contact = () => {
                     viewport={{ once: true }}
                     className="space-y-2"
                   >
-                    <Label htmlFor="message">Message *</Label>
+                    <Label htmlFor="message">{t("message")} *</Label>
                     <Textarea
                       id="message"
                       name="message"
@@ -196,7 +206,7 @@ const Contact = () => {
                     viewport={{ once: true }}
                   >
                     <Button type="submit" variant="glow" size="lg" className="w-full group">
-                      Send Message
+                      {t("send")}
                       <Send className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
                     </Button>
                   </motion.div>
@@ -213,7 +223,7 @@ const Contact = () => {
               >
                 <div>
                   <h2 className="text-3xl font-bold mb-4">
-                    Get in <span className="bg-gradient-cyber bg-clip-text text-transparent">Touch</span>
+                    {t("contactInfo")}
                   </h2>
                   <p className="text-muted-foreground">
                     Multiple ways to reach us for your convenience.

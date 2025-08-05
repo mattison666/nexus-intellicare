@@ -8,8 +8,12 @@ import {
 import Header from "@/components/Layout/Header";
 import Footer from "@/components/Layout/Footer";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const Services = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const serviceCategories = [
     {
       title: "Design & Identity",
@@ -153,10 +157,7 @@ const Services = () => {
               className="text-center max-w-4xl mx-auto"
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Our{" "}
-                <span className="bg-gradient-cyber bg-clip-text text-transparent">
-                  Smart Services
-                </span>
+                {t("servicesPageTitle")}
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
                 Comprehensive AI-powered solutions designed to transform your business and accelerate growth.
@@ -312,12 +313,21 @@ const Services = () => {
                 Get a free consultation and discover how our services can revolutionize your operations.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="glow" size="lg" className="group">
-                  Get a Free Consultation
+                <Button 
+                  variant="glow" 
+                  size="lg" 
+                  className="group"
+                  onClick={() => navigate('/contact')}
+                >
+                  {t("getFreeConsultation")}
                   <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
                 </Button>
-                <Button variant="outline" size="lg">
-                  View Our Portfolio
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  onClick={() => navigate('/projects')}
+                >
+                  {t("viewAllProjects")}
                 </Button>
               </div>
             </motion.div>

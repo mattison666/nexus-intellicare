@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Testimonials = () => {
+  const { t } = useTranslation();
   const testimonials = [
     {
       id: 1,
@@ -64,7 +66,7 @@ const Testimonials = () => {
             className="inline-flex items-center space-x-2 bg-primary/10 rounded-full px-4 py-2 mb-6"
           >
             <span className="w-2 h-2 bg-primary rounded-full"></span>
-            <span className="text-sm font-medium text-primary">Testimonials</span>
+            <span className="text-sm font-medium text-primary">{t("testimonialsTitle")}</span>
           </motion.div>
 
           <motion.h2
@@ -74,10 +76,7 @@ const Testimonials = () => {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold text-foreground mb-4"
           >
-            What Our{" "}
-            <span className="bg-gradient-cyber bg-clip-text text-transparent">
-              Clients Say
-            </span>
+            {t("testimonialsTitle")}
           </motion.h2>
 
           <motion.p
@@ -87,7 +86,7 @@ const Testimonials = () => {
             viewport={{ once: true }}
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
           >
-            Don't just take our word for it. Here's what industry leaders say about our AI solutions.
+            {t("testimonialsDescription")}
           </motion.p>
         </motion.div>
 

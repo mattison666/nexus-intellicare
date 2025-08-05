@@ -1,27 +1,32 @@
 import { motion } from "framer-motion";
 import { Lightbulb, Zap, TrendingUp, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const AboutPreview = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const values = [
     {
       icon: Lightbulb,
-      title: "Creativity",
+      title: t("creativity"),
       description: "Innovative solutions that push boundaries"
     },
     {
       icon: Zap,
-      title: "Innovation",
+      title: t("innovation"),
       description: "Cutting-edge technology and methodologies"
     },
     {
       icon: TrendingUp,
-      title: "Efficiency",
+      title: t("efficiency"),
       description: "Streamlined processes for optimal results"
     },
     {
       icon: Target,
-      title: "Progress",
+      title: t("progress"),
       description: "Continuous advancement and growth"
     }
   ];
@@ -46,7 +51,7 @@ const AboutPreview = () => {
               className="inline-flex items-center space-x-2 bg-primary/10 rounded-full px-4 py-2"
             >
               <span className="w-2 h-2 bg-primary rounded-full"></span>
-              <span className="text-sm font-medium text-primary">About Us</span>
+              <span className="text-sm font-medium text-primary">{t("about")}</span>
             </motion.div>
 
             <motion.h2
@@ -56,10 +61,7 @@ const AboutPreview = () => {
               viewport={{ once: true }}
               className="text-3xl md:text-4xl font-bold text-foreground"
             >
-              Pioneering the{" "}
-              <span className="bg-gradient-cyber bg-clip-text text-transparent">
-                AI Revolution
-              </span>
+              {t("aboutTitle")}
             </motion.h2>
 
             <motion.p
@@ -69,7 +71,7 @@ const AboutPreview = () => {
               viewport={{ once: true }}
               className="text-lg text-muted-foreground leading-relaxed"
             >
-              At AI Creative Group, we're not just following trends – we're creating them. Our team of visionaries, developers, and strategists work together to craft intelligent solutions that transform businesses and shape the future.
+              {t("aboutDescription")}
             </motion.p>
 
             <motion.div
@@ -78,8 +80,13 @@ const AboutPreview = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <Button variant="outline" size="lg" className="group">
-                Learn More
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="group"
+                onClick={() => navigate('/about')}
+              >
+                {t("learnMore")}
                 <motion.span
                   className="ml-2 transition-transform group-hover:translate-x-1"
                   whileHover={{ x: 5 }}

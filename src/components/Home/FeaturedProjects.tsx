@@ -2,8 +2,14 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink, Code, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import codeMonitorImage from "@/assets/code-monitor.jpg";
+import macbookCodeImage from "@/assets/macbook-code.jpg";
+import circuitBoardImage from "@/assets/circuit-board.jpg";
+import robotImage from "@/assets/robot.jpg";
 
 const FeaturedProjects = () => {
+  const { t } = useTranslation();
   const [currentProject, setCurrentProject] = useState(0);
 
   const projects = [
@@ -12,16 +18,16 @@ const FeaturedProjects = () => {
       title: "NeuroCommerce AI",
       category: "E-commerce Platform",
       description: "AI-powered e-commerce platform with predictive analytics and personalized shopping experiences.",
-      image: "/api/placeholder/600/400",
+      image: codeMonitorImage,
       tags: ["AI", "E-commerce", "Analytics"],
       type: "development"
     },
     {
       id: 2,
-      title: "MindFlow Dashboard",
+      title: "MindFlow Dashboard", 
       category: "Data Visualization",
       description: "Intelligent dashboard for real-time data visualization with AI-driven insights and recommendations.",
-      image: "/api/placeholder/600/400",
+      image: macbookCodeImage,
       tags: ["Dashboard", "AI", "Visualization"],
       type: "design"
     },
@@ -30,7 +36,7 @@ const FeaturedProjects = () => {
       title: "VoiceBot Assistant",
       category: "AI Assistant",
       description: "Advanced conversational AI with natural language processing and contextual understanding.",
-      image: "/api/placeholder/600/400",
+      image: circuitBoardImage,
       tags: ["AI", "NLP", "Assistant"],
       type: "development"
     },
@@ -39,7 +45,7 @@ const FeaturedProjects = () => {
       title: "CreativeAI Studio",
       category: "Design Platform",
       description: "AI-powered design platform that generates creative assets and automates design workflows.",
-      image: "/api/placeholder/600/400",
+      image: robotImage,
       tags: ["Design", "AI", "Automation"],
       type: "design"
     }
@@ -72,7 +78,7 @@ const FeaturedProjects = () => {
             className="inline-flex items-center space-x-2 bg-primary/10 rounded-full px-4 py-2 mb-6"
           >
             <span className="w-2 h-2 bg-primary rounded-full"></span>
-            <span className="text-sm font-medium text-primary">Featured Projects</span>
+            <span className="text-sm font-medium text-primary">{t("projectsTitle")}</span>
           </motion.div>
 
           <motion.h2
@@ -82,10 +88,7 @@ const FeaturedProjects = () => {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold text-foreground mb-4"
           >
-            Showcasing Our{" "}
-            <span className="bg-gradient-cyber bg-clip-text text-transparent">
-              Latest Work
-            </span>
+            {t("projectsTitle")}
           </motion.h2>
 
           <motion.p
@@ -95,7 +98,7 @@ const FeaturedProjects = () => {
             viewport={{ once: true }}
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
           >
-            Explore our portfolio of innovative AI solutions that have transformed businesses across industries.
+            {t("projectsDescription")}
           </motion.p>
         </motion.div>
 
@@ -115,12 +118,12 @@ const FeaturedProjects = () => {
               className="relative group"
             >
               <div className="relative overflow-hidden rounded-2xl border border-border/50">
-                <div className="aspect-[4/3] bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                  {projects[currentProject].type === 'development' ? (
-                    <Code className="w-24 h-24 text-primary/40" />
-                  ) : (
-                    <Palette className="w-24 h-24 text-accent/40" />
-                  )}
+                <div className="aspect-[4/3] relative">
+                  <img 
+                    src={projects[currentProject].image} 
+                    alt={projects[currentProject].title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 
                 {/* Overlay */}
@@ -223,7 +226,7 @@ const FeaturedProjects = () => {
           className="text-center mt-16"
         >
           <Button variant="outline" size="lg" className="group">
-            View All Projects
+            {t("viewAllProjects")}
             <motion.span
               className="ml-2 transition-transform group-hover:translate-x-1"
               whileHover={{ x: 5 }}

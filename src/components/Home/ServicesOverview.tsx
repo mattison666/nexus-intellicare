@@ -1,34 +1,39 @@
 import { motion } from "framer-motion";
 import { Palette, Code, Megaphone, GraduationCap, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const ServicesOverview = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const services = [
     {
       icon: Palette,
-      title: "Design",
-      description: "AI-powered design solutions that captivate and convert",
+      title: t("design"),
+      description: t("designDesc"),
       features: ["Logo Design", "UI/UX", "Motion Graphics"],
       color: "from-purple-500 to-pink-500"
     },
     {
       icon: Code,
-      title: "Development",
-      description: "Smart applications built with cutting-edge technology",
+      title: t("development"),
+      description: t("developmentDesc"),
       features: ["Web Apps", "Mobile Apps", "AI Integration"],
       color: "from-blue-500 to-cyan-500"
     },
     {
       icon: Megaphone,
-      title: "Marketing",
-      description: "Intelligent marketing strategies that drive growth",
+      title: t("marketing"),
+      description: t("marketingDesc"),
       features: ["AI Content", "SMMA", "SEO Optimization"],
       color: "from-green-500 to-emerald-500"
     },
     {
       icon: GraduationCap,
-      title: "Education",
-      description: "Learning platforms that empower and educate",
+      title: t("education"),
+      description: t("educationDesc"),
       features: ["Online Courses", "Certifications", "Workshops"],
       color: "from-orange-500 to-red-500"
     }
@@ -53,7 +58,7 @@ const ServicesOverview = () => {
             className="inline-flex items-center space-x-2 bg-primary/10 rounded-full px-4 py-2 mb-6"
           >
             <span className="w-2 h-2 bg-primary rounded-full"></span>
-            <span className="text-sm font-medium text-primary">Our Services</span>
+            <span className="text-sm font-medium text-primary">{t("servicesFooter")}</span>
           </motion.div>
 
           <motion.h2
@@ -63,10 +68,7 @@ const ServicesOverview = () => {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold text-foreground mb-4"
           >
-            Smart Solutions for{" "}
-            <span className="bg-gradient-cyber bg-clip-text text-transparent">
-              Every Need
-            </span>
+            {t("servicesTitle")}
           </motion.h2>
 
           <motion.p
@@ -76,7 +78,7 @@ const ServicesOverview = () => {
             viewport={{ once: true }}
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
           >
-            From intelligent design to smart development, we offer comprehensive AI-powered services that transform your business.
+            {t("servicesDescription")}
           </motion.p>
         </motion.div>
 
@@ -147,8 +149,13 @@ const ServicesOverview = () => {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <Button variant="outline" size="lg" className="group">
-            View All Services
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="group"
+            onClick={() => navigate('/services')}
+          >
+            {t("viewAllServices")}
             <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
           </Button>
         </motion.div>

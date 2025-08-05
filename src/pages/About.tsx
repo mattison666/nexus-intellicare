@@ -3,8 +3,12 @@ import { Users, Target, Eye, Heart, Award, TrendingUp } from "lucide-react";
 import Header from "@/components/Layout/Header";
 import Footer from "@/components/Layout/Footer";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const team = [
     {
       name: "Alex Chen",
@@ -55,10 +59,7 @@ const About = () => {
               className="max-w-4xl mx-auto"
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                About{" "}
-                <span className="bg-gradient-cyber bg-clip-text text-transparent">
-                  AI Creative Group
-                </span>
+                {t("aboutPageTitle")}
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                 We're a team of visionaries, innovators, and creators dedicated to shaping the future through intelligent solutions.
@@ -261,8 +262,12 @@ const About = () => {
               <p className="text-lg text-muted-foreground mb-8">
                 Let's discuss how our AI expertise can transform your business
               </p>
-              <Button variant="glow" size="lg">
-                Contact Us Today
+              <Button 
+                variant="glow" 
+                size="lg"
+                onClick={() => navigate('/contact')}
+              >
+                {t("contactTitle")}
               </Button>
             </motion.div>
           </div>
